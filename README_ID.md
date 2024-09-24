@@ -6,11 +6,11 @@ AUTO CLAIM FOR BLUM / @blum
 - [BlumTod](#blumtod)
 - [Daftar Isi](#daftar-isi)
 - [Peringatan](#peringatan)
+- [Dukung Hasil Pekerjaan Saya !](#dukung-hasil-pekerjaan-saya-)
 - [Fitur yang tersedia.](#fitur-yang-tersedia)
 - [Pendaftar](#pendaftar)
 - [Cara Pemakaian](#cara-pemakaian)
-  - [Bot.py Argumen](#botpy-argumen)
-  - [Tentang Config.json](#tentang-configjson)
+  - [Opsi Command Line / Argument Command Line](#opsi-command-line--argument-command-line)
   - [Tentang Proxy](#tentang-proxy)
   - [Windows](#windows)
   - [Linux](#linux)
@@ -18,14 +18,23 @@ AUTO CLAIM FOR BLUM / @blum
 - [Cara Mendapatkan Query](#cara-mendapatkan-query)
 - [Kode Javascript untuk Mendapatkan Data di Aplikasi Telegram Desktop](#kode-javascript-untuk-mendapatkan-data-di-aplikasi-telegram-desktop)
 - [Menjalankan Selama 24/7](#menjalankan-selama-247)
+- [Tabel Eror](#tabel-eror)
 - [Diskusi](#diskusi)
-- [Dukung Hasil Pekerjaan Saya !](#dukung-hasil-pekerjaan-saya-)
 - [Pertanyaan  dan Jawaban](#pertanyaan--dan-jawaban)
 - [Terima Kasih](#terima-kasih)
 
 # Peringatan
 
 Segala risiko ditanggung oleh pemakai
+
+# Dukung Hasil Pekerjaan Saya !
+
+Jika anda suka dengan hasil pekerjaan saya anda bisa mendukung saya melakui tautan dibawah
+
+- [Indonesia] https://s.id/nusanqr (QRIS)
+- [Indonesia] https://trakteer.id/fawwazthoerif/tip
+- [Global] https://sociabuzz.com/fawwazthoerif/tribe
+- Jika anda ingin mengirim dalam bentuk lain, anda bisa menghubungi saya melalui telegram.
 
 # Fitur yang tersedia.
 
@@ -35,6 +44,7 @@ Segala risiko ditanggung oleh pemakai
 - [x] Mendukung Penggunaan Proxy
 - [x] Otomatis Menyelesaikan Tugas (Task)
 - [x] Otomatis Bermain Game setelah Klaim 
+- [x] Mendukung multi proses
 
 # Pendaftar
 
@@ -42,45 +52,60 @@ Klik Tautan Berikut Untuk Melakukan Pendaftaran : [https://t.me/BlumCryptoBot/ap
 
 # Cara Pemakaian
 
-## Bot.py Argumen
+## Opsi Command Line / Argument Command Line
 
-| Nama Argument | Deskripsi                                                                          |
-| ------------- | ---------------------------------------------------------------------------------- |
-| --data        | Melakukan kustomisasi input file data / <br>query, secara bawaan adalah (data.txt) |
-| --proxy       | Melakukan kustomisaasi input file proxy, secara bawaan adalah (proxies.txt)        |
+Script / program ini juga mendukung beberapa argument parameter yang bisa dipakai, berikut adalah penjelasan argument 
 
-## Tentang Config.json
+`--data` / `-D` bisa digunakan ketika anda mempunyai nama file yang berbeda untuk menyimpan data akun. Secara bawaan nama file yang digunakan oleh script / program ini untuk menyimpan data akun adalah `data.txt`, semisal anda mempunyai file bernama `query.txt` sebagai file yang menyimpan data akun maka tinggal jalankan `bot.py` dengan menambahkan argumetn `--data` / `-D`. Contoh `python bot.py --data query.txt`
 
-Berikut adalah penjelasan tentang Nama (Key) dan Isi (Value) di dalam file config.json
+`--proxy` / `-P` bisa digunakan ketika anda mempunyai nama file yang berbeda untuk menyimpan list proxy. Nama file yang digunakan oleh script / program ini untuk menyimpan daftar proxy adalah `proxies.txt`, semisal anda mempunyai file bernama `prox.txt` sebagai file yang menyimpan daftar proxy, anda hanya tinggal menambahkan argument parameter `--proxy` / `-P` untuk dapat menggunakan file proxy anda. Contoh `python bot.py --proxy prox.txt`
 
-| Nama (Key)         | Isi (Value)                                  | Deskripsi                                                                                                                                                                                                                                                   |
-| ------------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| interval           | Angka Positif ( 1 - 9999)                    | Berfungsi untuk nilai jeda antara akun                                                                                                                                                                                                                      |
-| auto_complete_task | Boolean ( true (aktif) / false (non-aktif) ) | Berfungsi untuk meng-aktifkan dan <br>meng-non-aktifkan fitur Otomatis Penyelesaiian Task                                                                                                                                                                   |
-| auto_play_game     | Boolean ( true (aktif) / false (non-aktif))  | Berfungsi untuk meng-aktifkan dan <br>meng-non-aktifkan fitur Otomatis Memaikan game                                                                                                                                                                        |
-| game_point         | Angka Positif ( 1 - 9999)                    | game_point mempunyai sub key bernama low dan high. Berfungsi untuk melakukan kustomisasi point game <br>low adalahnilai paling rendah yang akan didapatkan ketika bermain game<br> high adalah nilai paling tinggi yang akan didapatkan ketika bermain game |
+`--worker` / `-W` argument ini berfungsi untuk melakukan kustomisasi jumlah thread / worker yang digunakan ketika script bot ini berjalan. Secara bawaan script / software ini jumlah worker nya adalah (total core cpu / 2), semisal cpu anda memiliki core 6 maka jumlah worker yang digunakan adalah 3. Anda bisa melakukan kustomisasi untuk jumlah worker ini menggunakan argument ini. Contohnya anda ingin membuat jumlah worker nya menjadi 100 maka jalankan `bot.py` dengan argument seperti ini `python bot.py --worker 100`. Dan jika anda tidak suka menggunakan worker / thread / multiprocessing maka anda bisa melakukan kustomisasi worker menjadi 1, contoh `python bot.py --worker 1`.
+
+`--action` / `-A` argument ini berfungsi untuk langsung masuk ke kemu yang dituju, misal dalam script bot ini ada 5 menu jika anda tidak ingin melakukan input secara manual anda bisa menggunakan argument ini untuk langsung masuk ke menu yang dituju. Contoh : `python bot.py --action 5` dalalm contoh tersebut berarti anda akan langsung masuk ke menu nomor 5. Argument ini berguna jika kalian menggunakan docker / pm2 untuk menjalankan script bot di proses background.
 
 ## Tentang Proxy
 
 Daftar di Website Berikut untuk Mendapatkan Proxy Gratis : [Here](https://www.webshare.io/?referral_code=dwj0m9cdi4mp)
 
+Website dengan harga proxy termurah $1/GB [Here](https://dataimpulse.com/?aff=48082)
+
 Anda bisa menambahkan daftar proxy di file `proxies.txt` dan format proxynya seprti berikut :
 
-Format :
+Jika terdapat autentikasi :
+
+Format : 
 
 ```
-http://host:port
-http://user:pass@host:port
+protocol://user:password@hostname:port
 ```
 
 Contoh :
 
 ```
-http://127.0.0.1:6969
-http://user:pass@127.0.0.1:6969
-socks5://127.0.0.1:6969
-socks5://user:pass@127.0.0.1:6969
+http://admin:admin@69.69.69.69:6969
 ```
+
+Jika tidak ada autentikasi :
+
+Format :
+
+```
+protocol://hostname:port
+```
+
+Contoh :
+
+```
+```
+
+Contoh :
+
+```
+http://69.69.69.69:6969
+```
+
+Tolong diperhatikan dengan saksama apakah proxy yang anda gunakan itu harus menggunakan autentikasi atau tidak, karena banyak orang yang DM saya bertanya cara penggunaan proxy.
 
 ## Windows 
 
@@ -205,18 +230,17 @@ copy(Telegram.WebApp.initData)
 
 Anda bisa menjalankan script bot dalam 24/7 menggunakan vps / rdp. Anda bisa menggunakan aplikasi `screen` jika menggunakan sistem operasi linux untuk menjalakan script botnya di latar belakang.
 
+# Tabel Eror
+
+| error                 | deskripsi                                                                                                                     |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| failed get json error | Ini dikarenakan respon server tidak berupa json dan mungkin berupa html, bisa kalian cek di file http.log untuk respon server |
+| failed get task list  | Ini dikarenakan respon server tidak memberikan respon yang seharunya, bisa kalian cek di file http.log untuk respon server    |
+| cannot start game     | Sama seperti error diatas, ini dikarenakan server. Kalian bisa cek di file http.log untuk respon server                       |
+
 # Diskusi
 
 Jika anda memiliki pertanyaan atau yang lain, anda bisa bertanya disini : [@sdsproject_chat](https://t.me/sdsproject_chat)
-
-# Dukung Hasil Pekerjaan Saya !
-
-Jika anda suka dengan hasil pekerjaan saya anda bisa mendukung saya melakui tautan dibawah
-
-- [Indonesia] https://s.id/nusanqr (QRIS)
-- [Indonesia] https://trakteer.id/fawwazthoerif/tip
-- [Global] https://sociabuzz.com/fawwazthoerif/tribe
-- Jika anda ingin mengirim dalam bentuk lain, anda bisa menghubungi saya melalui telegram.
 
 # Pertanyaan  dan Jawaban
 
@@ -227,6 +251,5 @@ A : Tidak, script bot / program ini tidak wajib memakai proxy.
 Q : Bagaimana cara saya memakai proxy?
 
 A : Poenjelasan mudahnya anda cukup mengisi file `proxies.txt` dengan format proxy yang telah saya terangkan diatas .
-
 
 # Terima Kasih 
