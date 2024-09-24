@@ -1,0 +1,1 @@
+start "blum" /MIN C:\WIzzard\blumtod\blum.py
